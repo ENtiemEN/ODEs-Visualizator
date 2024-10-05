@@ -1,0 +1,88 @@
+/* ----------------- HEADER -----------------*/
+
+.header {
+	display: flex;
+	background-color: #f0e6e4;
+	height: 100px;
+	margin-bottom: 20px;
+	justify-content: space-between; /* Distribute space between logo and title */
+	align-items: center;
+	padding: 0 20px; /* Add padding on the sides */
+}
+
+.sm_logo {
+	height: 80%;
+	/* No need for margin-right: auto; */
+}
+
+.main_title {
+	flex-grow: 1; /* Allow title to take available space */
+	text-align: center; /* Center the text */
+	margin: 0; /* Remove any default margin */
+}
+
+/** ----------------- NAVIGATION BAR  ----------------- **/
+.navigation_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	margin: 0 auto;
+}
+
+/** Buton's Style**/
+.buton {
+	width: 150px;
+	height: 50px;
+	border-radius: 30px;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+	color: white;
+	background-color: black;
+	margin: 0 10px;
+}
+.buton.ode_1:hover,
+.buton.ode_2:hover,
+.buton.ode_3:hover {
+	background-color: #444;
+	color: yellow;
+}
+
+/* .buton.ode_2:active{
+    background-color: black;
+    color: white;
+} */
+
+/** ----------------- PAGES - CONTENT ----------------- **/
+.Pages {
+	width: 100%;
+	height: 600px;
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+/** page 1 **/
+.div_parameters {
+	width: 40%;
+	border: 3px solid #f0e6e4;
+	border-radius: 20px;
+	padding-right: 10px;
+	padding-left: 10px;
+	margin-right: 5px;
+	height: 950px;
+}
+.div_graphic {
+	width: 60%;
+	border: 3px solid #f0e6e4;
+	border-radius: 20px;
+	margin-left: 5px;
+	height: 950px;
+}
+.div_flex {
+	display: flex;
+	justify-content: space-between;
+}
+/* Separar textos de los parámetros */
+.div_parameters h3 {
+	margin-bottom: 20px; /* Espacio entre los textos */
+}
