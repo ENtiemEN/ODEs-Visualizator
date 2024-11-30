@@ -1,5 +1,6 @@
 # Libraries
 import numpy as np
+import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
 from scipy.integrate import odeint
@@ -325,3 +326,91 @@ def lotka_volterra(
     fig3.update_yaxes(title_text="Population", row=2, col=1)
 
     return fig3
+
+
+######################################################
+# Modelo SIR Condicionado
+######################################################
+
+
+def SIR_conditioned_system(y, t, N, cp, beta, gamma):
+    S, I, R = y
+    if t < cp:
+        dSdt = -beta * S * I
+        dIdt = beta * S * I - gamma * I
+        dRdt = gamma * I
+    else:
+        beta = 0.01
+        gamma = 0.01
+        dSdt = -beta * S * I
+        dIdt = beta * S * I - gamma * I
+        dRdt = gamma * I
+    return [dSdt, dIdt, dRdt]
+
+
+def SIR_conditioned(beta, gamma, cp, S0, I0, R0, t_end):
+    t_values = np.linspace(0, t_end, 500)
+    z0 = [S0, I0, R0]
+    N = S0 + I0 + R0
+    sol = odeint(SIR_conditioned_system, z0, t_values, args=(N, cp, beta, gamma))
+    S = sol[:, 0]
+    I = sol[:, 1]
+    R = sol[:, 2]
+
+    fig4 = go.Figure()
+
+    # Add traces for S, I, R with improved aesthetics
+    fig4.add_trace(
+        go.Scatter(
+            x=t_values,
+            y=S,
+            mode="lines",
+            line=dict(color="blue", width=2),
+            name="Susceptible",
+        )
+    )
+    fig4.add_trace(
+        go.Scatter(
+            x=t_values,
+            y=I,
+            mode="lines",
+            line=dict(color="red", width=3),
+            name="Infected",
+        )
+    )
+    fig4.add_trace(
+        go.Scatter(
+            x=t_values,
+            y=R,
+            mode="lines",
+            line=dict(color="green", width=2),
+            name="Recovered",
+        )
+    )
+
+    # Add a vertical line indicating the change point
+    fig4.add_trace(
+        go.Scatter(
+            x=cp * np.ones(500),
+            y=np.linspace(0, N, 500),
+            mode="lines",
+            line=dict(color="black", width=1, dash="dash"),
+            name="Change Point",
+        )
+    )
+
+    # Update layout for better aesthetics
+    fig4.update_layout(
+        title={"text": "Conditioned SIR Model", "x": 0.5, "font": {"size": 24}},
+        width=800,
+        height=600,
+        showlegend=True,
+        template="plotly_white",
+        xaxis_title="Time",
+        yaxis_title="Population",
+        xaxis=dict(showgrid=True, gridcolor="LightGray"),
+        yaxis=dict(showgrid=True, gridcolor="LightGray"),
+        margin=dict(l=40, r=40, t=40, b=40),
+    )
+
+    return fig4

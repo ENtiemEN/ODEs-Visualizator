@@ -39,17 +39,17 @@ layout = html.Div(
                                 ),
                             ]
                         ),
-                    ],
-                ),
-                html.Div(
-                    className="div_flex",
-                    children=[
                         html.Div(
                             [
                                 html.H3("Final Time"),
                                 dcc.Input(type="number", value=50, id="time_fin3"),
                             ]
                         ),
+                    ],
+                ),
+                html.Div(
+                    className="div_flex",
+                    children=[
                         html.Div(
                             [
                                 html.H3("Prey Growth Rate"),
@@ -74,15 +74,19 @@ layout = html.Div(
                                 ),
                             ]
                         ),
+                        html.Div(
+                            [
+                                html.H3("Predator Growth Rate"),
+                                dcc.Input(
+                                    max=1,
+                                    step=0.01,
+                                    type="number",
+                                    value=0.01,
+                                    id="delta",
+                                ),
+                            ]
+                        ),
                     ],
-                ),
-                html.H3("Predator Growth Rate"),
-                dcc.Input(
-                    max=1,
-                    step=0.01,
-                    type="number",
-                    value=0.01,
-                    id="delta",
                 ),
                 html.H3("Predator Death Rate"),
                 dcc.Input(
@@ -125,7 +129,12 @@ layout = html.Div(
             className="div_graphic",
             children=[
                 html.H2("Lotka-Volterra Equations"),
-                dcc.Loading(type="default", children=dcc.Graph(id="figure_3")),
+                dcc.Loading(
+                    type="default",
+                    children=html.Div(
+                        className="centered-figure", children=dcc.Graph(id="figure_3")
+                    ),
+                ),
             ],
         ),
     ],

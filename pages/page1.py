@@ -44,10 +44,27 @@ layout = html.Div(
                         ),
                     ],
                 ),
-                html.H3("a rate"),
-                dcc.Input(max=10, step=0.1, type="number", value=5, id="a"),
-                html.H3("b rate"),
-                dcc.Input(max=10, step=0.1, type="number", value=1, id="b"),
+                html.Div(
+                    className="div_flex",
+                    children=[
+                        html.Div(
+                            [
+                                html.H3("a rate"),
+                                dcc.Input(
+                                    max=10, step=0.1, type="number", value=5, id="a"
+                                ),
+                            ]
+                        ),
+                        html.Div(
+                            [
+                                html.H3("b rate"),
+                                dcc.Input(
+                                    max=10, step=0.1, type="number", value=1, id="b"
+                                ),
+                            ]
+                        ),
+                    ],
+                ),
                 html.H3("Mesh for the vector field"),
                 dcc.Slider(
                     min=1,
@@ -72,7 +89,12 @@ layout = html.Div(
             className="div_graphic",
             children=[
                 html.H2("Simple ODE graph"),
-                dcc.Loading(type="default", children=dcc.Graph(id="figure_1")),
+                dcc.Loading(
+                    type="default",
+                    children=html.Div(
+                        className="centered-figure", children=dcc.Graph(id="figure_1")
+                    ),
+                ),
             ],
         ),
     ],

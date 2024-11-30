@@ -45,10 +45,25 @@ layout = html.Div(
                         ),
                     ],
                 ),
-                html.H3("Growth Rate"),
-                dcc.Input(max=5, step=0.1, type="number", value=0.15, id="r"),
-                html.H3("Load Capacity"),
-                dcc.Input(type="number", value=150, id="K"),
+                html.Div(
+                    className="div_flex",
+                    children=[
+                        html.Div(
+                            [
+                                html.H3("Growth Rate"),
+                                dcc.Input(
+                                    max=5, step=0.1, type="number", value=0.15, id="r"
+                                ),
+                            ]
+                        ),
+                        html.Div(
+                            [
+                                html.H3("Load Capacity"),
+                                dcc.Input(type="number", value=150, id="K"),
+                            ]
+                        ),
+                    ],
+                ),
                 html.H3("Mesh for the vector field"),
                 dcc.Slider(
                     min=1,
@@ -73,7 +88,12 @@ layout = html.Div(
             className="div_graphic",
             children=[
                 html.H2("ODE Logistic Equation"),
-                dcc.Loading(type="default", children=dcc.Graph(id="figure_2")),
+                dcc.Loading(
+                    type="default",
+                    children=html.Div(
+                        className="centered-figure", children=dcc.Graph(id="figure_2")
+                    ),
+                ),
             ],
         ),
     ],
